@@ -1,5 +1,12 @@
 name: Addressable
 ---
+Geocodable:
+  geocoder: OSMGeocoding
+
 GoogleGeocoding:
-  google_api_url: 'https://maps.googleapis.com/maps/api/geocode/xml'
-  google_api_key: ''
+  api_url: 'https://maps.googleapis.com/maps/api/geocode/xml'
+  api_key: ''
+
+OSMGeocoding:
+  api_url: 'http://nominatim.openstreetmap.org/search'
+  api_key: ''

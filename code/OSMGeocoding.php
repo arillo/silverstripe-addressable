@@ -4,7 +4,7 @@
  *
  * @package silverstripe-addressable
  */
-class GoogleGeocoding {
+class OSMGeocoding {
 
 	/**
 	 * Convert an address into a latitude and longitude.
@@ -15,27 +15,28 @@ class GoogleGeocoding {
 	 */
 	public static function address_to_point($address, $region = null) {
 		// Get the URL for the Google API
-		$url = Config::inst()->get('GoogleGeocoding', 'api_url');
-		$key = Config::inst()->get('GoogleGeocoding', 'api_key');
+		$url = Config::inst()->get('OSMGeocoding', 'api_url');
+		$key = Config::inst()->get('OSMGeocoding', 'api_key');
 
 		// Query the Google API
 		$service = new RestfulService($url);
 		$service->setQueryString(array(
-			'address' => $address,
-			'sensor'  => 'false',
-			'region'  => $region,
-			'key'		=> $key
+      'format' => 'xml',
+			'q' => $address,
+			'country'  => $region,
+      'limit' => 1
 		));
 		$response = $service->request()->simpleXML();
+    Debug::dump($response);
 
-		if ($response->status != 'OK') {
-			return false;
-		}
+    if (!$response->place) {
+      return false;
+    }
 
-		$location = $response->result->geometry->location;
+		$location = $response->place->attributes();
 		return array(
 			'lat' => (float) $location->lat,
-			'lng' => (float) $location->lng
+			'lng' => (float) $location->lon
 		);
 	}
 

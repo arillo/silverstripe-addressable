@@ -7,6 +7,7 @@
  */
 class Geocodable extends DataExtension {
 
+
 	private static $db = array(
 		'Lat' => 'Decimal(9,5)',
 		'Lng' => 'Decimal(9,5)'
@@ -18,7 +19,9 @@ class Geocodable extends DataExtension {
 		$address = $this->owner->getFullAddress();
 		$region  = strtolower($this->owner->Country);
 
-		if(!$point = GoogleGeocoding::address_to_point($address, $region)) {
+    $geocoder = Config::inst()->get('Geocodable', 'geocoder');
+
+		if(!$point = $geocoder::address_to_point($address, $region)) {
 			return;
 		}
 
