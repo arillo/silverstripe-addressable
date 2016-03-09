@@ -1,6 +1,6 @@
 <address>
 	$Address<br>
-	$Suburb<br>
+	$City<br>
 	$State $Postcode<br>
 	$CountryName
 </address>
