@@ -27,7 +27,6 @@ class OSMGeocoding {
       'limit' => 1
 		));
 		$response = $service->request()->simpleXML();
-    Debug::dump($response);
 
     if (!$response->place) {
       return false;
