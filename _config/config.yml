@@ -1,7 +1,7 @@
 name: Addressable
 ---
 Geocodable:
-  geocoder: OSMGeocoding
+  geocoder: GoogleGeocoding
 
 GoogleGeocoding:
   api_url: 'https://maps.googleapis.com/maps/api/geocode/xml'
